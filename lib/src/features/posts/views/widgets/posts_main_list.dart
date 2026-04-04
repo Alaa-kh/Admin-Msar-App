@@ -1,0 +1,48 @@
+import 'package:admin_msar/src/core/constants/app_colors.dart';
+import 'package:admin_msar/src/core/widgets/app_button.dart';
+import 'package:admin_msar/src/core/widgets/app_card_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+class PostsMainListWidget extends StatelessWidget {
+  const PostsMainListWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Text(
+                  'إدارة المنشورات',
+                  style: TextStyle(
+                    color: AppColors.primaryDark,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                AppButton(
+                  title: 'إضافة منشور جديد',
+                  onPressed: () => context.push('/add_post'),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return AppCardWidget();
+            }, childCount: 5),
+          ),
+        ],
+      ),
+    );
+  }
+}
