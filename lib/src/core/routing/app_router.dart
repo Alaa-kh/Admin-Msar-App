@@ -1,3 +1,4 @@
+import 'package:admin_msar/src/features/ads/views/ads_page.dart';
 import 'package:admin_msar/src/features/posts/views/posts_page.dart';
 import 'package:admin_msar/src/features/users/users_page.dart';
 import 'package:go_router/go_router.dart';
@@ -38,6 +39,11 @@ class AppRouter {
         path: '/posts',
         name: 'posts',
         pageBuilder: (_, __) => const NoTransitionPage(child: PostsPage()),
+      ),
+      GoRoute(
+        path: '/ads',
+        name: 'ads',
+        pageBuilder: (_, __) => const NoTransitionPage(child: AdsPage()),
       ),
       //   ],
       //   redirect: (context, state) async {

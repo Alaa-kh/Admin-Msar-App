@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                 icon: AppIcons.out,
                 number: 70,
                 text: 'العروض الخارجية',
-                onTap: () {},
+                onTap: () => context.push('/ads'),
               ).fadeUp(),
               const SizedBox(height: 24),
             ],
