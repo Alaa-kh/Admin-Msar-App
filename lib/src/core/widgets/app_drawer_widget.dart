@@ -38,26 +38,6 @@ Drawer appDrawer(BuildContext context) {
           ),
           const SizedBox(height: 20),
           ListTile(
-            leading: Icon(Icons.person, color: AppColors.primary),
-            title: Text(
-              'مستخدم جديد',
-              style: TextStyle(
-                color: AppColors.primaryDark,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.phone, color: AppColors.primary),
-            title: Text(
-              '01212134567',
-              style: TextStyle(
-                color: AppColors.primaryDark,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          ListTile(
             leading: Icon(Icons.email, color: AppColors.primary),
             title: Text(
               'testtest@gmail.com',

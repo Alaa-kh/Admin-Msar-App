@@ -29,10 +29,7 @@ class AddAdsFormWidget extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Text(
               'إضافة مرفق',
-              style: TextStyle(
-                color: AppColors.primaryDark,
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(color: AppColors.primaryDark),
             ),
           ),
           const SizedBox(height: 10),
@@ -76,10 +73,7 @@ class AddAdsFormWidget extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Text(
               'رقم الواتساب',
-              style: TextStyle(
-                color: AppColors.primaryDark,
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(color: AppColors.primaryDark),
             ),
           ),
           AppTextField(
