@@ -17,7 +17,7 @@ class UserPostsMainListWidget extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 Text(
-                  'إدارة المنشورات',
+                  'إدارة المستخدمين',
                   style: TextStyle(
                     color: AppColors.primaryDark,
                     fontSize: 22,
