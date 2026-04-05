@@ -26,7 +26,7 @@ class AdsPage extends StatelessWidget {
         ),
       ),
       body: const Padding(
-        padding: EdgeInsets.all( 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: AdsCardsWidget(),
       ),
     );
