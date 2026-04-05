@@ -16,4 +16,5 @@ class AppIcons {
   static const posts = 'assets/svg/posts.svg';
   static const out = 'assets/svg/out.svg';
   static const delete = 'assets/svg/delete.svg';
+  static const upload = 'assets/svg/upload.svg';
 }

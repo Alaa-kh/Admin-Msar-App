@@ -35,7 +35,7 @@ class AdsCardsWidget extends StatelessWidget {
               const SizedBox(height: 10),
               AppButton(
                 title: 'إضافة عرض خارجي جديد',
-                onPressed: () => context.push('/add_post'),
+                onPressed: () => context.push('/add_ads'),
               ),
               const SizedBox(height: 20),
             ],
