@@ -26,9 +26,9 @@ class AddAdsPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          child: AddAdsFormWidget(),
+          child: AddAdsFormWidget().fadeUp(),
         ),
       ),
     );

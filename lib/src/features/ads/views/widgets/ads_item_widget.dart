@@ -1,3 +1,4 @@
+import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class AdsItemWidget extends StatelessWidget {
               height: 180,
               width: double.infinity,
               color: Colors.grey.shade300,
-            ),
+            ).fadeUp(),
             errorWidget: (_, __, ___) => Container(
               height: 180,
               width: double.infinity,
@@ -29,7 +30,7 @@ class AdsItemWidget extends StatelessWidget {
               child: const Icon(Icons.broken_image),
             ),
           ),
-        ),
+        ).fadeUp(),
         Positioned(
           left: 1,
           bottom: 1,
@@ -41,9 +42,13 @@ class AdsItemWidget extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: const Icon(Icons.delete, color: AppColors.red, size: 18),
+            child: const Icon(
+              Icons.delete,
+              color: AppColors.red,
+              size: 18,
+            ).fadeUp(),
           ),
-        ),
+        ).fadeUp(),
       ],
     );
   }

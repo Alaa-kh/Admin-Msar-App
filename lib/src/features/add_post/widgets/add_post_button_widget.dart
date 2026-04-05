@@ -1,3 +1,4 @@
+import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
 import 'package:admin_msar/src/core/constants/app_icons.dart';
@@ -36,8 +37,8 @@ class AddPostButtonWidget extends StatelessWidget {
                         icon: Icon(Icons.close),
                         onPressed: () => Navigator.pop(context),
                       ),
-                    ),
-                    SvgPicture.asset(AppIcons.done),
+                    ).fadeUp(),
+                    SvgPicture.asset(AppIcons.done).fadeUp(),
                     SizedBox(height: 20),
                     Text(
                       'تمت إضافة منشورك بنجاح!',
@@ -46,7 +47,7 @@ class AddPostButtonWidget extends StatelessWidget {
                         color: AppColors.primaryDark,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
+                    ).fadeUp(),
                     SizedBox(height: 16),
                   ],
                 ),

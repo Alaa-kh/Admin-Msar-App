@@ -1,3 +1,4 @@
+import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
 import 'package:admin_msar/src/core/constants/app_icons.dart';
 import 'package:admin_msar/src/core/widgets/app_button.dart';
@@ -35,8 +36,8 @@ Future<dynamic> appBottomSheet(
                   icon: Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
                 ),
-              ),
-              SvgPicture.asset(AppIcons.delete),
+              ).fadeUp(),
+              SvgPicture.asset(AppIcons.delete).fadeUp(),
               SizedBox(height: 27),
               Text(
                 text,
@@ -45,21 +46,21 @@ Future<dynamic> appBottomSheet(
                   color: AppColors.primaryDark,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
+              ).fadeUp(),
               SizedBox(height: 16),
               Text(
                 subTitle,
                 style: TextStyle(color: AppColors.grey),
                 textAlign: TextAlign.center,
-              ),
+              ).fadeUp(),
               SizedBox(height: 16),
               AppButton(
                 title: textButton,
                 onPressed: onTap,
                 backgroundColor: AppColors.red,
-              ),
+              ).fadeUp(),
               SizedBox(height: 15),
-              Text('إلغاء', style: TextStyle(color: AppColors.grey)),
+              Text('إلغاء', style: TextStyle(color: AppColors.grey)).fadeUp(),
               SizedBox(height: 16),
             ],
           ),

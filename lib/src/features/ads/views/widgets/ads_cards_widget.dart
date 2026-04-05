@@ -1,5 +1,6 @@
+import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
-import 'package:admin_msar/src/core/widgets/app_button.dart';
+import 'package:admin_msar/src/core/widgets/app_header_delegate.dart';
 import 'package:admin_msar/src/features/ads/views/widgets/ads_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,14 +32,16 @@ class AdsCardsWidget extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 ),
                 textAlign: TextAlign.center,
-              ),
+              ).fadeUp(),
               const SizedBox(height: 10),
-              AppButton(
-                title: 'إضافة عرض خارجي جديد',
-                onPressed: () => context.push('/add_ads'),
-              ),
-              const SizedBox(height: 20),
             ],
+          ),
+        ),
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: AppHeaderDelegate(
+            title: 'إضافة عرض خارجي جديد',
+            onPressed: () => context.push('/add_ads'),
           ),
         ),
         SliverList.separated(

@@ -1,3 +1,4 @@
+import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
@@ -17,31 +18,43 @@ class AddPostFormWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 30),
-          Text('عنوان المنشور', style: TextStyle(color: AppColors.primaryDark)),
+          Text(
+            'عنوان المنشور',
+            style: TextStyle(color: AppColors.primaryDark),
+          ).fadeUp(),
           AppTextField(hint: 'أدخل عنواناً جذاباً...'),
           const SizedBox(height: 7),
-          Text('وصف المنشور', style: TextStyle(color: AppColors.primaryDark)),
+          Text(
+            'وصف المنشور',
+            style: TextStyle(color: AppColors.primaryDark),
+          ).fadeUp(),
           AppTextField(
             maxLines: 7,
             minLines: 1,
             hint: 'اكتب تفاصيل المنشور هنا...',
-          ),
+          ).fadeUp(),
           const SizedBox(height: 7),
-          Text('رقم الواتساب', style: TextStyle(color: AppColors.primaryDark)),
+          Text(
+            'رقم الواتساب',
+            style: TextStyle(color: AppColors.primaryDark),
+          ).fadeUp(),
           AppTextField(
             hint: 'أدخل رقم الواتساب هنا...',
             keyboardType: TextInputType.phone,
             formatter: [
               FilteringTextInputFormatter.allow(RegExp(r'^\+?[0-9]*$')),
             ],
-          ),
+          ).fadeUp(),
           const SizedBox(height: 10),
-          Text('الجنس المختار', style: TextStyle(color: AppColors.primaryDark)),
+          Text(
+            'الجنس المختار',
+            style: TextStyle(color: AppColors.primaryDark),
+          ).fadeUp(),
           const SizedBox(height: 7),
-          AddPostGenderWidget(),
+          AddPostGenderWidget().fadeUp(),
           const SizedBox(height: 10),
           SizedBox(height: screenHeight * 0.2),
-          AddPostButtonWidget(),
+          AddPostButtonWidget().fadeUp(),
           const SizedBox(height: 15),
         ],
       ),

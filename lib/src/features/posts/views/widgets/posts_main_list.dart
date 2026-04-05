@@ -1,6 +1,6 @@
 import 'package:admin_msar/src/core/constants/app_colors.dart';
-import 'package:admin_msar/src/core/widgets/app_button.dart';
 import 'package:admin_msar/src/core/widgets/app_card_widget.dart';
+import 'package:admin_msar/src/core/widgets/app_header_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,8 +16,8 @@ class PostsMainListWidget extends StatelessWidget {
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
+              children: const [
+                SizedBox(height: 20),
                 Text(
                   'إدارة المنشورات',
                   style: TextStyle(
@@ -25,21 +25,25 @@ class PostsMainListWidget extends StatelessWidget {
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 10),
-                AppButton(
-                  title: 'إضافة منشور جديد',
-                  onPressed: () => context.push('/add_post'),
-                ),
-                const SizedBox(height: 20),
+                SizedBox(height: 10),
               ],
             ),
           ),
+
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: AppHeaderDelegate(
+              title: 'إضافة منشور جديد',
+              onPressed: () => context.push('/add_post'),
+            ),
+          ),
+
           SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return AppCardWidget();
-            }, childCount: 5),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => const AppCardWidget(),
+              childCount: 5,
+            ),
           ),
         ],
       ),

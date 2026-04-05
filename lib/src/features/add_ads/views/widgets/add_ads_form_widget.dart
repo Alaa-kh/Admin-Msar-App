@@ -1,9 +1,11 @@
+import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
 import 'package:admin_msar/src/core/constants/app_dashed_border.dart';
 import 'package:admin_msar/src/core/constants/app_icons.dart';
 import 'package:admin_msar/src/core/widgets/app_button.dart';
 import 'package:admin_msar/src/core/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:svg_flutter/svg.dart';
 
 class AddAdsFormWidget extends StatelessWidget {
@@ -23,15 +25,15 @@ class AddAdsFormWidget extends StatelessWidget {
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
-          ),
+          ).fadeUp(),
           const SizedBox(height: 20),
           Align(
             alignment: Alignment.centerRight,
             child: Text(
               'إضافة مرفق',
               style: TextStyle(color: AppColors.primaryDark),
-            ),
-          ),
+            ).fadeUp(),
+          ).fadeUp(),
           const SizedBox(height: 10),
           DashedBorder(
             child: Container(
@@ -53,7 +55,7 @@ class AddAdsFormWidget extends StatelessWidget {
                       color: AppColors.primaryDark,
                       fontWeight: FontWeight.w800,
                     ),
-                  ),
+                  ).fadeUp(),
                   const SizedBox(height: 10),
                   Directionality(
                     textDirection: TextDirection.rtl,
@@ -62,12 +64,12 @@ class AddAdsFormWidget extends StatelessWidget {
                       style: TextStyle(
                         color: AppColors.dark.withValues(alpha: .5),
                       ),
-                    ),
+                    ).fadeUp(),
                   ),
                 ],
               ),
             ),
-          ),
+          ).fadeUp(),
           const SizedBox(height: 25),
           Align(
             alignment: Alignment.centerRight,
@@ -75,18 +77,24 @@ class AddAdsFormWidget extends StatelessWidget {
               'رقم الواتساب',
               style: TextStyle(color: AppColors.primaryDark),
             ),
-          ),
+          ).fadeUp(),
           AppTextField(
+            keyboardType: TextInputType.phone,
+            formatter: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\+?[0-9]*$')),
+            ],
             hint: '111212121',
             prefix: Padding(
               padding: const EdgeInsets.only(right: 13.0, top: 15, bottom: 15),
-              child: SvgPicture.asset(AppIcons.phone, width: 1, height: 1),
+              child: SvgPicture.asset(
+                AppIcons.phone,
+                width: 1,
+                height: 1,
+              ).fadeUp(),
             ),
-          ),
+          ).fadeUp(),
           const SizedBox(height: 15),
-
-          const SizedBox(height: 15),
-          AppButton(title: 'إضافة', onPressed: () {}),
+          AppButton(title: 'إضافة', onPressed: () {}).fadeUp(),
         ],
       ),
     );
