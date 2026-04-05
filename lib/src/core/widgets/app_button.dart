@@ -8,6 +8,7 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final double? height;
   final Color? backgroundColor;
+  final Color? colorText;
   const AppButton({
     super.key,
     required this.title,
@@ -15,6 +16,7 @@ class AppButton extends StatelessWidget {
     this.loading = false,
     this.height,
     this.backgroundColor,
+    this.colorText,
   });
 
   @override
@@ -50,7 +52,7 @@ class AppButton extends StatelessWidget {
                   style: GoogleFonts.cairo(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: colorText ?? Colors.white,
                   ),
                 ),
         ),

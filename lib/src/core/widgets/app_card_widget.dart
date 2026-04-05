@@ -1,4 +1,4 @@
-import 'package:admin_msar/src/core/widgets/app_button.dart';
+import 'package:admin_msar/src/core/widgets/app_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
@@ -41,68 +41,12 @@ class AppCardWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        showModalBottomSheet(
-                          isDismissible: false,
-                          backgroundColor: Colors.white,
-                          context: context,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(35),
-                            ),
-                          ),
-                          isScrollControlled: true,
-                          builder: (context) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                bottom: MediaQuery.of(
-                                  context,
-                                ).viewInsets.bottom,
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.all(16),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: IconButton(
-                                        icon: Icon(Icons.close),
-                                        onPressed: () => Navigator.pop(context),
-                                      ),
-                                    ),
-                                    SvgPicture.asset(AppIcons.delete),
-                                    SizedBox(height: 27),
-                                    Text(
-                                      'هل أنت متأكد من حذف المنشور؟',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: AppColors.primaryDark,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 16),
-                                    Text(
-                                      'لا يمكن التراجع عن هذا الإجراء بمجرد تأكيده. سيتم حذف جميع البيانات المرتبطة بهذا المنشور.',
-                                      style: TextStyle(color: AppColors.grey),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(height: 16),
-                                    AppButton(
-                                      title: 'نعم، احذف المنشور',
-                                      onPressed: () {},
-                                      backgroundColor: AppColors.red,
-                                    ),
-                                    SizedBox(height: 15),
-                                    Text(
-                                      'إلغاء',
-                                      style: TextStyle(color: AppColors.grey),
-                                    ),
-                                    SizedBox(height: 16),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                        appBottomSheet(
+                          context,
+                          'هل أنت متأكد من حذف المنشور؟',
+                          'لا يمكن التراجع عن هذا الإجراء بمجرد تأكيده. سيتم حذف جميع البيانات المرتبطة بهذا المنشور.',
+                          'نعم، احذف المنشور',
+                          () {},
                         );
                       },
                       child: Icon(Icons.delete, color: AppColors.red),

@@ -1,9 +1,10 @@
+import 'package:admin_msar/src/core/animation/motions.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
-import 'package:admin_msar/src/core/widgets/app_card_widget.dart';
+import 'package:admin_msar/src/features/users/widgets/users_cards_widget.dart';
 import 'package:flutter/material.dart';
 
-class UserPostsMainListWidget extends StatelessWidget {
-  const UserPostsMainListWidget({super.key});
+class UsersPostsMainListWidget extends StatelessWidget {
+  const UsersPostsMainListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class UserPostsMainListWidget extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
                 Text(
@@ -24,18 +25,15 @@ class UserPostsMainListWidget extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                   textAlign: TextAlign.center,
-                ),
+                ).fadeUp(),
                 const SizedBox(height: 20),
               ],
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return AppCardWidget();
-              }, childCount: 5),
-            ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return UsersCardsWidget();
+            }, childCount: 5),
           ),
         ],
       ),
