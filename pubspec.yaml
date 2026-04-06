@@ -29,6 +29,7 @@ dependencies:
   smooth_page_indicator: ^2.0.1
   flutter_native_splash: ^2.4.7
   fl_chart: ^1.2.0
+  firebase_core: ^4.6.0
 
 dev_dependencies:
   flutter_test:
