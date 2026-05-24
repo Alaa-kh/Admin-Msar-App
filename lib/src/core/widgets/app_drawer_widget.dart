@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:admin_msar/src/core/constants/app_colors.dart';
 import 'package:admin_msar/src/core/constants/app_icons.dart';
 import 'package:admin_msar/src/core/constants/app_images.dart';
 import 'package:admin_msar/src/core/widgets/app_button.dart';
+import 'package:admin_msar/src/features/auth/session/presentation/cubit/auth_session_cubit.dart';
+import 'package:admin_msar/src/features/auth/session/presentation/cubit/auth_session_state.dart';
 import 'package:svg_flutter/svg.dart';
 
 Drawer appDrawer(BuildContext context) {
@@ -26,7 +29,7 @@ Drawer appDrawer(BuildContext context) {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: GestureDetector(
                         onTap: () => context.pop(),
-                        child: Icon(Icons.close, color: Colors.white),
+                        child: const Icon(Icons.close, color: Colors.white),
                       ),
                     ),
                   ),
@@ -37,99 +40,114 @@ Drawer appDrawer(BuildContext context) {
             ),
           ),
           const SizedBox(height: 20),
-          ListTile(
-            leading: Icon(Icons.email, color: AppColors.primary),
-            title: Text(
-              'testtest@gmail.com',
-              style: TextStyle(
-                color: AppColors.primaryDark,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+          BlocBuilder<AuthSessionCubit, AuthSessionState>(
+            builder: (context, state) {
+              final email = state is AuthSessionAuthenticated
+                  ? state.admin.email
+                  : '';
+              return ListTile(
+                leading: const Icon(Icons.email, color: AppColors.primary),
+                title: Text(
+                  email,
+                  style: const TextStyle(
+                    color: AppColors.primaryDark,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              );
+            },
           ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15.0),
             child: ListTile(
-              leading: Icon(Icons.logout, color: AppColors.red),
-              title: Text(
+              leading: const Icon(Icons.logout, color: AppColors.red),
+              title: const Text(
                 'تسجيل الخروج',
                 style: TextStyle(
                   color: AppColors.red,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Future.delayed(Duration(milliseconds: 300), () {
-                  showModalBottomSheet(
-                    isDismissible: false,
-                    backgroundColor: Colors.white,
-                    context: context,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(35),
-                      ),
-                    ),
-                    isScrollControlled: true,
-                    builder: (context) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom,
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(16),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                  icon: Icon(Icons.close),
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                              ),
-                              SvgPicture.asset(AppIcons.logout),
-                              SizedBox(height: 27),
-                              Text(
-                                'تسجيل الخروج',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: AppColors.primaryDark,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 16),
-                              Text(
-                                'هل أنت متأكد من رغبتك في تسجيل الخروج؟',
-                                style: TextStyle(color: AppColors.grey),
-                              ),
-                              SizedBox(height: 16),
-                              AppButton(
-                                title: 'تسجيل الخروج',
-                                onPressed: () {},
-                                backgroundColor: AppColors.red,
-                              ),
-                              SizedBox(height: 15),
-                              Text(
-                                'إلغاء',
-                                style: TextStyle(color: AppColors.grey),
-                              ),
-                              SizedBox(height: 16),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                });
-              },
+              onTap: () => _showLogoutSheet(context),
             ),
           ),
         ],
       ),
     ),
   );
+}
+
+void _showLogoutSheet(BuildContext context) {
+  final sessionCubit = context.read<AuthSessionCubit>();
+  Navigator.of(context).pop();
+  Future.delayed(const Duration(milliseconds: 300), () {
+    if (!context.mounted) return;
+    showModalBottomSheet(
+      isDismissible: false,
+      backgroundColor: Colors.white,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
+      ),
+      isScrollControlled: true,
+      builder: (sheetContext) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(sheetContext).viewInsets.bottom,
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(sheetContext),
+                  ),
+                ),
+                SvgPicture.asset(AppIcons.logout),
+                const SizedBox(height: 27),
+                const Text(
+                  'تسجيل الخروج',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: AppColors.primaryDark,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'هل أنت متأكد من رغبتك في تسجيل الخروج؟',
+                  style: TextStyle(color: AppColors.grey),
+                ),
+                const SizedBox(height: 16),
+                AppButton(
+                  title: 'تسجيل الخروج',
+                  onPressed: () async {
+                    Navigator.pop(sheetContext);
+                    await sessionCubit.logout();
+                  },
+                  backgroundColor: AppColors.red,
+                ),
+                const SizedBox(height: 15),
+                GestureDetector(
+                  onTap: () => Navigator.pop(sheetContext),
+                  child: const Text(
+                    'إلغاء',
+                    style: TextStyle(color: AppColors.grey),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  });
 }
 
 class DrawerClipper extends CustomClipper<Path> {

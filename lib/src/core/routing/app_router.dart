@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:admin_msar/src/features/add_ads/views/add_ads_page.dart';
 import 'package:admin_msar/src/features/ads/views/ads_page.dart';
+import 'package:admin_msar/src/features/auth/session/presentation/cubit/auth_session_cubit.dart';
+import 'package:admin_msar/src/features/auth/session/presentation/cubit/auth_session_state.dart';
 import 'package:admin_msar/src/features/posts/views/posts_page.dart';
 import 'package:admin_msar/src/features/users/users_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:admin_msar/src/core/storage/token_storage.dart';
 import 'package:admin_msar/src/features/add_post/add_post_page.dart';
@@ -9,12 +14,26 @@ import 'package:admin_msar/src/features/auth/login/views/login_page.dart';
 import 'package:admin_msar/src/features/home/views/home_page.dart';
 
 class AppRouter {
-  AppRouter(this.storage);
+  AppRouter({required this.storage, required this.sessionCubit});
   final TokenStorage storage;
+  final AuthSessionCubit sessionCubit;
 
   late final GoRouter router = GoRouter(
-    // navigatorKey: AppOverlay.navigatorKey,
     initialLocation: '/home',
+    refreshListenable: _CubitRefresh(sessionCubit),
+    redirect: (context, state) {
+      final session = sessionCubit.state;
+      final location = state.matchedLocation;
+
+      if (session is AuthSessionInitial) return null;
+
+      final isAuthed = session is AuthSessionAuthenticated;
+      final isLoginPage = location == '/login';
+
+      if (!isAuthed && !isLoginPage) return '/login';
+      if (isAuthed && isLoginPage) return '/home';
+      return null;
+    },
     routes: [
       GoRoute(
         path: '/login',
@@ -51,45 +70,20 @@ class AppRouter {
         name: 'add_ads',
         pageBuilder: (_, __) => const NoTransitionPage(child: AddAdsPage()),
       ),
-      //   ],
-      //   redirect: (context, state) async {
-      //     final user = await UserBox().readUser();
-      //     final logged = user != null;
-
-      //     final seenOnboarding = await storage.getOnboardingSeen();
-
-      //     final location = state.matchedLocation;
-
-      //     const publicRoutes = <String>{
-      //       '/onboarding',
-      //       '/login',
-      //       '/register',
-      //       '/register_map',
-      //       '/reset-password',
-      //       '/verify',
-      //       '/verify_account',
-      //       '/new-password',
-      //       '/support',
-      //     };
-
-      //     if (!logged && !seenOnboarding && location != '/onboarding') {
-      //       return '/onboarding';
-      //     }
-
-      //     if (logged &&
-      //         (location == '/login' ||
-      //             location == '/onboarding' ||
-      //             location == '/register')) {
-      //       return '/';
-      //     }
-
-      //     if (!logged && !publicRoutes.contains(location)) {
-      //       return '/login';
-      //     }
-
-      //     return null;
-      //   },
-      // );
     ],
   );
+}
+
+class _CubitRefresh extends ChangeNotifier {
+  _CubitRefresh(AuthSessionCubit cubit) {
+    notifyListeners();
+    _subscription = cubit.stream.listen((_) => notifyListeners());
+  }
+  late final StreamSubscription _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
 }
