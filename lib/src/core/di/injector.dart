@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:admin_msar/src/features/add_ads/presentation/cubit/add_ads_cubit.dart';
 import 'package:admin_msar/src/features/add_post/presentation/cubit/add_post_cubit.dart';
@@ -43,9 +41,9 @@ void setupInjector() {
   // External services
   getIt
     ..registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance)
-    ..registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance)
-    ..registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance)
-    ..registerLazySingleton<ImagePicker>(ImagePicker.new);
+    ..registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance,
+    );
 
   // Auth
   getIt
@@ -101,10 +99,7 @@ void setupInjector() {
   // Ads
   getIt
     ..registerLazySingleton<AdsRemoteDataSource>(
-      () => AdsRemoteDataSource(
-        firestore: getIt<FirebaseFirestore>(),
-        storage: getIt<FirebaseStorage>(),
-      ),
+      () => AdsRemoteDataSource(getIt<FirebaseFirestore>()),
     )
     ..registerLazySingleton<AdsRepository>(
       () => AdsRepositoryImpl(getIt<AdsRemoteDataSource>()),
@@ -115,9 +110,7 @@ void setupInjector() {
     ..registerFactory<AdsCubit>(
       () => AdsCubit(getAds: getIt(), deleteAd: getIt()),
     )
-    ..registerFactory<AddAdsCubit>(
-      () => AddAdsCubit(createAd: getIt(), picker: getIt()),
-    );
+    ..registerFactory<AddAdsCubit>(() => AddAdsCubit(getIt()));
 
   // Home
   getIt

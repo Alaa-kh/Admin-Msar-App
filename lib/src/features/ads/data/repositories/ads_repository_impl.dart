@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:admin_msar/src/core/error/firebase_failure_mapper.dart';
 import 'package:admin_msar/src/core/network/api_result.dart';
 import 'package:admin_msar/src/features/ads/data/datasources/ads_remote_data_source.dart';
@@ -31,9 +29,9 @@ class AdsRepositoryImpl implements AdsRepository {
   }
 
   @override
-  Future<ApiResult<BannerAd>> createAd({required File image}) async {
+  Future<ApiResult<BannerAd>> createAd({required String imageUrl}) async {
     try {
-      final ad = await _remote.createAd(image: image);
+      final ad = await _remote.createAd(imageUrl: imageUrl);
       return ApiSuccess(ad.toEntity());
     } catch (e) {
       return ApiFailure(mapFirebaseException(e));

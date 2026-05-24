@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:admin_msar/src/features/ads/domain/entities/banner_ad.dart';
 
 sealed class AddAdsState {
@@ -7,15 +5,11 @@ sealed class AddAdsState {
 }
 
 class AddAdsInitial extends AddAdsState {
-  const AddAdsInitial({this.image});
-  final File? image;
-
-  AddAdsInitial copyWith({File? image}) => AddAdsInitial(image: image);
+  const AddAdsInitial();
 }
 
 class AddAdsSubmitting extends AddAdsState {
-  const AddAdsSubmitting(this.image);
-  final File image;
+  const AddAdsSubmitting();
 }
 
 class AddAdsSuccess extends AddAdsState {
@@ -24,7 +18,6 @@ class AddAdsSuccess extends AddAdsState {
 }
 
 class AddAdsError extends AddAdsState {
-  const AddAdsError(this.message, {this.image});
+  const AddAdsError(this.message);
   final String message;
-  final File? image;
 }

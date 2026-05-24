@@ -16,9 +16,6 @@ Failure mapFirebaseException(Object error) {
     });
   }
   if (error is FirebaseException) {
-    if (error.plugin == 'firebase_storage') {
-      return const ServerFailure('فشل رفع الملف');
-    }
     if (error.plugin == 'cloud_firestore') {
       return switch (error.code) {
         'permission-denied' => const PermissionFailure(),

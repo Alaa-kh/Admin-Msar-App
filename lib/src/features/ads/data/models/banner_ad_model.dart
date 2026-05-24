@@ -8,14 +8,12 @@ class BannerAdModel {
     required this.imageUrl,
     required this.isActive,
     required this.order,
-    this.storagePath,
   });
 
   final String id;
   final String imageUrl;
   final bool isActive;
   final int order;
-  final String? storagePath;
 
   factory BannerAdModel.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data() ?? const {};
@@ -24,7 +22,6 @@ class BannerAdModel {
       imageUrl: (data['imageUrl'] ?? '') as String,
       isActive: (data['isActive'] ?? true) as bool,
       order: (data['order'] ?? 0) as int,
-      storagePath: data['storagePath'] as String?,
     );
   }
 
@@ -33,6 +30,5 @@ class BannerAdModel {
     imageUrl: imageUrl,
     isActive: isActive,
     order: order,
-    storagePath: storagePath,
   );
 }
