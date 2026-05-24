@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1008180737797",
+    "project_id": "msar-app-48df7",
+    "storage_bucket": "msar-app-48df7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008180737797:android:33b2b7721cdd762a34696c",
+        "android_client_info": {
+          "package_name": "com.example.admin_msar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbbtVMuPdTWnO4Z95dpGuuKI_zMHCyiek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008180737797:android:8dde2328f04a3da934696c",
+        "android_client_info": {
+          "package_name": "com.example.msar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbbtVMuPdTWnO4Z95dpGuuKI_zMHCyiek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
