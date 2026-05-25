@@ -20,7 +20,7 @@ Future<dynamic> appBottomSheet(
       borderRadius: BorderRadius.vertical(top: Radius.circular(35)),
     ),
     isScrollControlled: true,
-    builder: (context) {
+    builder: (sheetContext) {
       return Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -60,7 +60,13 @@ Future<dynamic> appBottomSheet(
                 backgroundColor: AppColors.red,
               ).fadeUp(),
               SizedBox(height: 15),
-              Text('إلغاء', style: TextStyle(color: AppColors.grey)).fadeUp(),
+              GestureDetector(
+                onTap: () => Navigator.pop(sheetContext),
+                child: Text(
+                  'إلغاء',
+                  style: TextStyle(color: AppColors.grey),
+                ).fadeUp(),
+              ),
               SizedBox(height: 16),
             ],
           ),

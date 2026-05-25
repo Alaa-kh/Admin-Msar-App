@@ -6,6 +6,7 @@ import 'package:admin_msar/src/core/widgets/app_snack_bar.dart';
 import 'package:admin_msar/src/features/posts/domain/entities/post.dart';
 import 'package:admin_msar/src/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -123,10 +124,117 @@ class PostCardWidget extends StatelessWidget {
               post.description,
               style: const TextStyle(color: AppColors.grey, height: 1.5),
             ).fadeUp(),
-            Align(
-              alignment: AlignmentGeometry.bottomLeft,
-              child: SvgPicture.asset(AppIcons.whatsapp, width: 30),
-            ).fadeUp(),
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(AppIcons.whatsapp, width: 50),
+
+                            const SizedBox(height: 18),
+
+                            const Text(
+                              'رقم الواتساب',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.primaryDark,
+                              ),
+                            ),
+
+                            const SizedBox(height: 16),
+
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: Center(
+                                child: Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: Text(
+                                    post.whatsapp.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.green,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  await Clipboard.setData(
+                                    ClipboardData(
+                                      text: post.whatsapp.toString(),
+                                    ),
+                                  );
+
+                                  if (context.mounted) {
+                                    Navigator.pop(context);
+
+                                    AppSnackBar.success(
+                                      context,
+                                      'تم نسخ الرقم',
+                                    );
+                                  }
+                                },
+                                icon: const Icon(
+                                  Icons.copy,
+                                  color: Colors.white,
+                                ),
+                                label: const Text(
+                                  'نسخ الرقم',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: SvgPicture.asset(AppIcons.whatsapp, width: 30),
+              ).fadeUp(),
+            ),
           ],
         ),
       ),
