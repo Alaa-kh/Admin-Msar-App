@@ -21,7 +21,7 @@ class LoginFormWidget extends StatefulWidget {
 class _LoginFormWidgetState extends State<LoginFormWidget> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _obscure = true;
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -65,30 +65,30 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             const SizedBox(height: 24),
             AppTextField(
               controller: _emailController,
-              hintTextDirection: TextDirection.ltr,
-              textDirection: TextDirection.ltr,
-              label: 'البريد الإلكتروني',
               keyboardType: TextInputType.emailAddress,
+              hintTextDirection: TextDirection.rtl,
+              label: 'البريد الإلكتروني',
               prefix: Padding(
-                padding: const EdgeInsets.only(right: 13.0, top: 15, bottom: 15),
+                padding: const EdgeInsets.only(right: 13, top: 15, bottom: 15),
                 child: SvgPicture.asset(AppIcons.email, width: 1, height: 1),
               ),
             ).fadeUp(),
             AppTextField(
               controller: _passwordController,
-              hintTextDirection: TextDirection.ltr,
-              textDirection: TextDirection.ltr,
+              hintTextDirection: TextDirection.rtl,
               label: 'كلمة المرور',
-              obscure: _obscure,
+              obscure: _obscurePassword,
               prefix: Padding(
-                padding: const EdgeInsets.only(right: 12.0, top: 14, bottom: 14),
+                padding: const EdgeInsets.only(right: 12, top: 14, bottom: 14),
                 child: SvgPicture.asset(AppIcons.password, width: 1, height: 1),
               ),
               suffix: IconButton(
-                onPressed: () => setState(() => _obscure = !_obscure),
+                onPressed: () =>
+                    setState(() => _obscurePassword = !_obscurePassword),
                 icon: SvgPicture.asset(AppIcons.eye),
               ),
             ).fadeUp(),
+
             SizedBox(height: screenHeight * 0.2),
             AppButton(
               title: 'تسجيل الدخول',
@@ -96,9 +96,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               onPressed: isLoading
                   ? null
                   : () => context.read<LoginCubit>().signIn(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      ),
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    ),
             ).scaleIn(),
             const SizedBox(height: 13),
           ],
